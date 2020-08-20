@@ -4,7 +4,7 @@
 <p align="center">
   <img align="center" src="https://pbs.twimg.com/profile_images/1114309924551417856/FKA4cm2x_400x400.png" alt="Q&Aid" width="30%">
   <img align="center" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/800px-React-icon.svg.png" alt="Q&Aid" width="30%">
-  <img align="center" src="https://pytorch.org/assets/images/pytorch-logo.png" alt="Q&Aid" width="30%">
+  <img align="center" src="https://pytorch.org/assets/images/pytorch-logo.png" alt="Q&Aid" width="20%">
 </p>
 
 
