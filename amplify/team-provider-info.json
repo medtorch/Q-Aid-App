@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-medqaid2production-dev-213401-authRole",
+            "UnauthRoleArn": "arn:aws:iam::798295937236:role/amplify-medqaid2production-dev-213401-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::798295937236:role/amplify-medqaid2production-dev-213401-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "amplify-medqaid2production-dev-213401-deployment",
+            "UnauthRoleName": "amplify-medqaid2production-dev-213401-unauthRole",
+            "StackName": "amplify-medqaid2production-dev-213401",
+            "StackId": "arn:aws:cloudformation:eu-central-1:798295937236:stack/amplify-medqaid2production-dev-213401/bdde86d0-d9a5-11ea-b3ef-063da53eea2a",
+            "AmplifyAppId": "d3761klju88d4p"
+        },
+        "categories": {
+            "auth": {
+                "medqaid2productionbcb6fbc6": {}
+            }
+        }
+    }
+}

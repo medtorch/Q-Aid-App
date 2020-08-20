@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "588441293144",
+    "firebase_url": "https://q-aid-d2eff.firebaseio.com",
+    "project_id": "q-aid-d2eff",
+    "storage_bucket": "q-aid-d2eff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588441293144:android:bc5f0f0d022bfefa1a152d",
+        "android_client_info": {
+          "package_name": "com.medqaidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588441293144-54v67nal5nktmoogjs7a7huepg5sj3tq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4rj_N-_jfXYH-TEBiJ-2-nhhbGC6sjUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588441293144-54v67nal5nktmoogjs7a7huepg5sj3tq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588441293144:android:3372ab7cf4df2f6a1a152d",
+        "android_client_info": {
+          "package_name": "com.scesiltium.medqaid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588441293144-54v67nal5nktmoogjs7a7huepg5sj3tq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4rj_N-_jfXYH-TEBiJ-2-nhhbGC6sjUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588441293144-54v67nal5nktmoogjs7a7huepg5sj3tq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
