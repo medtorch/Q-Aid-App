@@ -58,7 +58,7 @@ react-native run-ios
 
 ## Next steps
  - :panda_face: React Native compatibility with PyTorch - we added native support (here)[https://github.com/medtorch/Q-Aid-App/tree/master/android/app/src/main/java/com/medqaidapp], but it fails to compile due to a fbjni linkage issue, similar to this one https://github.com/pytorch/pytorch/issues/43142
-
+ - :two_hearts: iOS support.
 ## Contributors
 
 See [CONTRIBUTORS.md](CONTRIBUTORS.md).
