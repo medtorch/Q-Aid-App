@@ -182,6 +182,9 @@ android {
     lintOptions {
          abortOnError false
      }
+     dexOptions {
+         jumboMode = true
+    }
  
      packagingOptions {
          pickFirst "lib/armeabi-v7a/libc++_shared.so"

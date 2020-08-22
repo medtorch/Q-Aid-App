@@ -32,11 +32,11 @@ module.exports.templates = {
 
     on_hip_no_anomalies: [
       "%s health intelligence providers analyzed your input and lukily, they didn't find anything abnormal!",
-      "%s HIPs say there isn't anything abnormal in your photo!",
+      "%s hospitals say there isn't anything abnormal in your photo!",
     ],
     on_hip_anomalies: [
       "Unfortunately, %s/%s of the health intelligence providers found abnormalities in your input!",
-      "Unfortunately, %s/%s of the HIPs found issues in your photo!",
+      "Unfortunately, %s/%s of the hospitals found issues in your photo!",
     ],
     on_prefilter_anomaly: [
       "The sources identified %s in the %s area. One of the possible reasons could be %s!",
@@ -64,6 +64,10 @@ module.exports.templates = {
     on_dictionary_error: ["Sorry, I couldn't find any definition."],
     on_abnormal_end: [
       "Please contact a specialist on the issue. You can export a transcript of this conversation",
+    ],
+    on_continue: ["Would you like to know something else?"],
+    on_end: [
+      "You can print this report and send it to multiple specialists. Take care!",
     ],
   },
   messages: {

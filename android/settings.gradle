@@ -1,4 +1,8 @@
 rootProject.name = 'medqaidapp'
+include ':react-native-pdf-lib'
+project(':react-native-pdf-lib').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-pdf-lib/android')
+include ':react-native-pdf-lib'
+project(':react-native-pdf-lib').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-pdf-lib/android')
 include ':react-native-svg'
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)

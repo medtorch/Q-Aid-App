@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import {
   Icon,
   MenuItem,
@@ -11,7 +11,7 @@ import {
   Button,
   Popover,
 } from "@ui-kitten/components";
-import { StyleSheet, View, Image, Alert } from "react-native";
+import { StyleSheet, View, Image, Alert, Linking } from "react-native";
 import { ChatStyle } from "../../components";
 import PhotoUpload from "react-native-photo-upload";
 
@@ -25,18 +25,22 @@ import {
   ShareIcon,
   LogoutIcon,
   PhotoIcon,
+  HeartIcon,
+  LightIcon,
 } from "./icons.js";
 import { ChatContext } from "./context.js";
 import { User } from "./user.js";
 import { Models } from "./models.js";
 import { CreateAlert } from "./utils.js";
 import { Wiki } from "./wiki.js";
+import { PDFGenerator } from "./pdf.js";
 
 var replyIdx = 1;
 var ctx = new ChatContext();
 var user_ctx = new User();
 var models = new Models();
 var wiki = new Wiki();
+var pdf = new PDFGenerator();
 
 export function Main() {
   const [menuVisible, setMenuVisible] = React.useState(false);
@@ -63,8 +67,28 @@ export function Main() {
         visible={menuVisible}
         onBackdropPress={toggleMenu}
       >
-        <MenuItem accessoryLeft={InfoIcon} title="Models" />
-        <MenuItem accessoryLeft={ShareIcon} title="Send to a doctor" />
+        <MenuItem
+          accessoryLeft={LightIcon}
+          title="Motivation"
+          onPress={() => {
+            Linking.openURL("https://github.com/medtorch/Q-Aid-Motivation");
+          }}
+        />
+        <MenuItem
+          accessoryLeft={HeartIcon}
+          title="Models"
+          onPress={() => {
+            Linking.openURL("https://github.com/medtorch/Q-Aid-Models");
+          }}
+        />
+        <MenuItem
+          accessoryLeft={InfoIcon}
+          title="About"
+          onPress={() => {
+            Linking.openURL("https://github.com/medtorch/Q-Aid-Core");
+          }}
+        />
+        <MenuItem accessoryLeft={ShareIcon} title="Print" />
         <MenuItem
           accessoryLeft={LogoutIcon}
           title="Logout"

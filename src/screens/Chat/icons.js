@@ -6,3 +6,5 @@ module.exports.InfoIcon = (props) => <Icon {...props} name="info" />;
 module.exports.ShareIcon = (props) => <Icon {...props} name="share-outline" />;
 module.exports.LogoutIcon = (props) => <Icon {...props} name="log-out" />;
 module.exports.PhotoIcon = (props) => <Icon {...props} name="image" />;
+module.exports.HeartIcon = (props) => <Icon {...props} name="heart" />;
+module.exports.LightIcon = (props) => <Icon {...props} name="bulb-outline" />;
