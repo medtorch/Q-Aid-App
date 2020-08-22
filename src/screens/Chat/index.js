@@ -27,6 +27,7 @@ import {
   PhotoIcon,
   HeartIcon,
   LightIcon,
+  ChatAvatar,
 } from "./icons.js";
 import { ChatContext } from "./context.js";
 import { User } from "./user.js";
@@ -254,6 +255,7 @@ export function Main() {
 
   const generateReply = (msg) => {
     replyIdx += 1;
+    var qaid_avatar = ChatAvatar();
     return {
       _id: replyIdx,
       text: msg,
@@ -261,8 +263,7 @@ export function Main() {
       user: {
         _id: 2,
         name: "Q&Aid",
-        avatar:
-          "https://cdn0.iconfinder.com/data/icons/avatar-2-3/450/23_avatar__woman_user-512.png",
+        avatar: qaid_avatar,
       },
       seen: true,
     };

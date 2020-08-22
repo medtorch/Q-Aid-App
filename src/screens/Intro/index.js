@@ -13,16 +13,17 @@ import { getUser } from "../../graphql/queries";
 const pages = [
   {
     backgroundColor: palette.background,
-    image: <Image source={Context["Logo"]} style={IntroStyle.image} />,
+    image: <Image source={Context["IntroLogo"]} style={IntroStyle.image} />,
     title: "Welcome to Q&Aid!",
     subtitle:
-      "Explore the latest AI discoveries in healthcare. \n\n Ask a second opinion on medical images.",
+      " Explore the latest AI discoveries in healthcare. \n\n Ask a second opinion on medical images.",
   },
   {
     backgroundColor: palette.background,
-    image: <Image source={Context["Logo"]} style={IntroStyle.image} />,
+    image: <Image source={Context["IntroLogo2"]} style={IntroStyle.image} />,
     title: "Welcome to Q&Aid!",
-    subtitle: "Debate about a medical issue in the chatroom. \n\n Let's start!",
+    subtitle:
+      "Connect to several hospitals data for your investigation. \n\n Let's start!",
   },
 ];
 
