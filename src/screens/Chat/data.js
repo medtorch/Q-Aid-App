@@ -42,6 +42,29 @@ module.exports.templates = {
       "The sources identified %s in the %s area. One of the possible reasons could be %s!",
       "There seems to be %s in the %s area. One of the possible reasons could be %s!",
     ],
+    on_vqa: [
+      "%s VQA providers agreed that the answer is: %s.",
+      "%s VQA sources answered with: %s.",
+    ],
+    on_empty_vqa: [
+      "Unfortunately, no VQA provider could answer that.",
+      "Sorry, no VQA provider could find an answer.",
+    ],
+    on_dictionary_miss: [
+      "Did you mean: %s?",
+      "Nothing found. Maybe you meant %s?",
+      "No results, but you can try %s.",
+    ],
+    on_dictionary_hit: [
+      "Acording to Merriam-Webster dictionary, %s reffers to %s.",
+      "%s is defined as %s.",
+      "One definition for %s is: %s.",
+    ],
+
+    on_dictionary_error: ["Sorry, I couldn't find any definition."],
+    on_abnormal_end: [
+      "Please contact a specialist on the issue. You can export a transcript of this conversation",
+    ],
   },
   messages: {
     on_error: {
@@ -68,7 +91,7 @@ module.exports.templates = {
   },
 };
 
-module.exports.get_reply = function (type) {
+module.exports.GetReplyContent = function (type) {
   return module.exports.templates.replies[type][
     Math.floor(Math.random() * module.exports.templates.replies[type].length)
   ];

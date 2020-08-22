@@ -36,8 +36,11 @@ class Models {
     return this.image_helper("/prefilter", img, cbk);
   }
 
+  segmentation(img, cbk) {
+    return this.image_helper("/segmentation", img, cbk);
+  }
+
   vqa(img, query, cbk) {
-    console.log("vqa query ", img, query);
     var payload = {
       image_b64: img,
       question: query,
@@ -51,7 +54,28 @@ class Models {
       .then((response) => response.json())
       .then((responseData) => {
         if (responseData["answer"] !== null) {
-          return cbk(null, responseData["answer"]);
+          var verdict = {
+            total: responseData["answer"]["total"],
+            data: null,
+          };
+          if (!responseData["answer"]["aggregated"]) {
+            return cbk(null, verdict);
+          }
+          if (!responseData["answer"]["aggregated"]["vqa"]) {
+            return cbk(null, verdict);
+          }
+          var results = responseData["answer"]["aggregated"]["vqa"];
+          var best = -1;
+          var most_likely = null;
+          for (var val in results) {
+            if (results[val] > best) {
+              best = results[val];
+              most_likely = val;
+            }
+          }
+          verdict.data = most_likely;
+
+          return cbk(null, verdict);
         } else {
           return cbk("no result", null);
         }
