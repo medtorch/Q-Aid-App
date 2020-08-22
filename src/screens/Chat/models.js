@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 class Models {
   constructor() {
-    this.server = 'https://q-and-aid.com';
-    this.method = 'POST';
+    this.server = "https://q-and-aid.com";
+    this.method = "POST";
     this.headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
   }
 
@@ -21,41 +21,39 @@ class Models {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log('got response ', route, responseData);
+        console.log("got response ", route, responseData);
 
-        if (responseData['answer'] !== null) {
-          return cbk(null, responseData['answer']);
+        if (responseData["answer"] !== null) {
+          return cbk(null, responseData["answer"]);
         } else {
-          return cbk('no result', null);
+          return cbk("no result", null);
         }
       })
       .catch((err) => cbk(err, null));
   }
 
-  image_router(img, cbk) {
-    return this.image_helper('/router', img, cbk);
-  }
   prefilter(img, cbk) {
-    return this.image_helper('/prefilter', img, cbk);
+    return this.image_helper("/prefilter", img, cbk);
   }
+
   vqa(img, query, cbk) {
-    console.log('vqa query ', img, query);
+    console.log("vqa query ", img, query);
     var payload = {
       image_b64: img,
       question: query,
     };
 
-    fetch(this.server + '/vqa', {
+    fetch(this.server + "/vqa", {
       method: this.method,
       headers: this.headers,
       body: JSON.stringify(payload),
     })
       .then((response) => response.json())
       .then((responseData) => {
-        if (responseData['answer'] !== null) {
-          return cbk(null, responseData['answer']);
+        if (responseData["answer"] !== null) {
+          return cbk(null, responseData["answer"]);
         } else {
-          return cbk('no result', null);
+          return cbk("no result", null);
         }
       })
       .catch((error) => {

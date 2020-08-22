@@ -1,5 +1,5 @@
-import React from 'react';
-import {Alert} from 'react-native';
+import React from "react";
+import { Alert } from "react-native";
 
 module.exports.CreateAlert = function (msg) {
   Alert.alert(
@@ -7,11 +7,11 @@ module.exports.CreateAlert = function (msg) {
     msg.description,
     [
       {
-        text: 'Got it!',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
+        text: "Got it!",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
       },
     ],
-    {cancelable: false},
+    { cancelable: false }
   );
 };

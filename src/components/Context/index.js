@@ -1,12 +1,12 @@
 var Context = {
-  Logo: require('../../assets/logo.png'),
+  Logo: require("../../assets/logo.png"),
 
   Onboarding: {
     SkipOnboarding: false,
   },
 
   Auth: {
-    State: '',
+    State: "",
   },
 };
 module.exports = Context;

@@ -1,2 +1,2 @@
-export * from './Style';
-export const Context = require('./Context');
+export * from "./Style";
+export const Context = require("./Context");

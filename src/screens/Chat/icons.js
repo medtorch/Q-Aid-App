@@ -1,5 +1,5 @@
-import React from 'react';
-import {Icon} from '@ui-kitten/components';
+import React from "react";
+import { Icon } from "@ui-kitten/components";
 
 module.exports.MenuIcon = (props) => <Icon {...props} name="more-vertical" />;
 module.exports.InfoIcon = (props) => <Icon {...props} name="info" />;

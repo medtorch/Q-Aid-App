@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Icon,
   MenuItem,
@@ -10,20 +10,26 @@ import {
   Card,
   Button,
   Popover,
-} from '@ui-kitten/components';
-import {StyleSheet, View, Image, Alert} from 'react-native';
-import {ChatStyle} from '../../components';
-import PhotoUpload from 'react-native-photo-upload';
+} from "@ui-kitten/components";
+import { StyleSheet, View, Image, Alert } from "react-native";
+import { ChatStyle } from "../../components";
+import PhotoUpload from "react-native-photo-upload";
 
-import {Auth} from 'aws-amplify';
-import {GiftedChat, Bubble} from 'react-native-gifted-chat';
+import { Auth } from "aws-amplify";
+import { GiftedChat, Bubble } from "react-native-gifted-chat";
 
-import {templates, get_reply, get_pretty_category} from './data.js';
-import {MenuIcon, InfoIcon, ShareIcon, LogoutIcon, PhotoIcon} from './icons.js';
-import {ChatContext} from './context.js';
-import {User} from './user.js';
-import {Models} from './models.js';
-import {CreateAlert} from './utils.js';
+import { templates, get_reply, get_pretty_category } from "./data.js";
+import {
+  MenuIcon,
+  InfoIcon,
+  ShareIcon,
+  LogoutIcon,
+  PhotoIcon,
+} from "./icons.js";
+import { ChatContext } from "./context.js";
+import { User } from "./user.js";
+import { Models } from "./models.js";
+import { CreateAlert } from "./utils.js";
 
 var replyIdx = 1;
 var ctx = new ChatContext();
@@ -37,7 +43,7 @@ export function Main() {
 
   useEffect(() => {
     user_ctx.load();
-    setMessages([generateReply(get_reply('intro'))]);
+    setMessages([generateReply(get_reply("intro"))]);
   }, []);
 
   const toggleMenu = () => {
@@ -53,7 +59,8 @@ export function Main() {
       <OverflowMenu
         anchor={renderMenuAction}
         visible={menuVisible}
-        onBackdropPress={toggleMenu}>
+        onBackdropPress={toggleMenu}
+      >
         <MenuItem accessoryLeft={InfoIcon} title="Models" />
         <MenuItem accessoryLeft={ShareIcon} title="Send to a doctor" />
         <MenuItem
@@ -65,54 +72,93 @@ export function Main() {
     </React.Fragment>
   );
 
-  const fetchPhotoCategory = (bs64img) => {
-    setIsTyping(true);
-    models.image_router(bs64img, function (err, answer) {
-      setIsTyping(false);
-      if (err) {
-        console.log('image router failed ', err);
-        return;
-      }
-      ctx.category = get_pretty_category(answer);
-      setMessages((previousMessages) =>
-        GiftedChat.append(
-          previousMessages,
-          generateReply(
-            'That looks like ' +
-              ctx.category +
-              '. What would you like to know?',
-          ),
-        ),
-      );
-    });
-  };
-
   const onPhotoUpload = async (file) => {
-    if (file.error || typeof file.uri == 'undefined') {
-      console.log('failed to load file ', file);
+    if (file.error || typeof file.uri == "undefined") {
+      console.log("failed to load file ", file);
       return;
     }
     ctx.reset();
-    ctx.source.uri = file.uri;
+    ctx.on_source(file.uri);
   };
+
+  const handlePrefilter = async () => {
+    setIsTyping(true);
+
+    if (ctx.topic) {
+      var template = get_reply("on_upload");
+      template = template.replace("%s", ctx.topic);
+
+      setMessages((previousMessages) =>
+        GiftedChat.append(previousMessages, generateReply(template))
+      );
+    }
+
+    await new Promise((r) => setTimeout(r, 1000));
+
+    if (ctx.total_sources == 0) {
+      setMessages((previousMessages) =>
+        GiftedChat.append(
+          previousMessages,
+          generateReply(get_reply("on_no_hip"))
+        )
+      );
+      setIsTyping(false);
+      return;
+    }
+
+    if (ctx.anomalies.total_sources == 0) {
+      var template = get_reply("on_hip_no_anomalies");
+      template = template.replace("%s", ctx.total_sources);
+
+      setMessages((previousMessages) =>
+        GiftedChat.append(previousMessages, generateReply(template))
+      );
+      setIsTyping(false);
+      return;
+    }
+
+    var template = get_reply("on_hip_anomalies");
+    template = template.replace("%s", ctx.anomalies.total_sources);
+    template = template.replace("%s", ctx.total_sources);
+
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, generateReply(template))
+    );
+
+    await new Promise((r) => setTimeout(r, 1000));
+
+    var template = get_reply("on_prefilter_anomaly");
+    template = template.replace("%s", ctx.anomalies["what"]);
+    template = template.replace("%s", ctx.anomalies["where"]);
+    template = template.replace("%s", ctx.anomalies["why"]);
+
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, generateReply(template))
+    );
+
+    setIsTyping(false);
+  };
+
   const onPhotoSelect = (bs64img) => {
-    setMessages([generateReply(get_reply('intro'))]);
+    setMessages([generateReply(get_reply("intro"))]);
+
+    onImageRequest(ctx.source.uri);
+    setIsTyping(true);
 
     models.prefilter(bs64img, function (err, answer) {
+      setIsTyping(false);
       if (err) {
-        console.log('prefilter failed ', err);
+        console.log("prefilter failed ", err);
         CreateAlert(templates.messages.on_error);
         return;
       }
-      if (answer === 0) {
-        ctx.state = 'valid';
-        ctx.image_value = bs64img;
+      ctx.on_prefilter(bs64img, answer);
 
-        onImageRequest(ctx.source.uri);
-        fetchPhotoCategory(bs64img);
-      } else {
+      if (!ctx.valid) {
         CreateAlert(templates.messages.on_invalid_input);
+        return;
       }
+      return handlePrefilter();
     });
   };
 
@@ -132,11 +178,13 @@ export function Main() {
         <Modal
           visible={modalVisible}
           backdropStyle={ChatStyle.backdrop}
-          onBackdropPress={() => setModalVisible(false)}>
+          onBackdropPress={() => setModalVisible(false)}
+        >
           <Card disabled={true}>
             <PhotoUpload
               onResponse={onPhotoUpload}
-              onPhotoSelect={onPhotoSelect}>
+              onPhotoSelect={onPhotoSelect}
+            >
               <Image
                 style={ChatStyle.modalImage}
                 resizeMode="cover"
@@ -153,7 +201,7 @@ export function Main() {
     <View style={ChatStyle.titleContainer}>
       <Avatar
         style={ChatStyle.logo}
-        source={require('../../assets/logo.png')}
+        source={require("../../assets/logo.png")}
       />
     </View>
   );
@@ -170,9 +218,9 @@ export function Main() {
       createdAt: new Date(),
       user: {
         _id: 2,
-        name: 'Q&Aid',
+        name: "Q&Aid",
         avatar:
-          'https://cdn0.iconfinder.com/data/icons/avatar-2-3/450/23_avatar__woman_user-512.png',
+          "https://cdn0.iconfinder.com/data/icons/avatar-2-3/450/23_avatar__woman_user-512.png",
       },
       seen: true,
     };
@@ -195,29 +243,29 @@ export function Main() {
     var msg = get_reply(cat);
 
     setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, generateReply(msg)),
+      GiftedChat.append(previousMessages, generateReply(msg))
     );
   };
 
   const isValidQuery = (input) => {
-    if (input.length == 0) return 'invalid';
-    if (input.trim().substr(-1) !== '?') return 'invalid';
-    return 'valid';
+    if (input.length == 0) return "invalid";
+    if (input.trim().substr(-1) !== "?") return "invalid";
+    return "valid";
   };
 
   const onQuestion = (query, cbk) => {
-    if (ctx.state !== 'valid') {
-      return cbk('error', 'invalid input');
+    if (ctx.state !== "valid") {
+      return cbk("error", "invalid input");
     }
 
     models.vqa(ctx.image_value, query, function (err, answer) {
       if (err) {
-        return cbk('error', err);
+        return cbk("error", err);
       }
       if (answer != null) {
-        return cbk('hit', answer);
+        return cbk("hit", answer);
       }
-      return cbk('miss', 'no data');
+      return cbk("miss", "no data");
     });
   };
 
@@ -225,28 +273,28 @@ export function Main() {
     if (messages.length == 0) return;
 
     setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages),
+      GiftedChat.append(previousMessages, messages)
     );
     var query = messages[0].text;
     var status = isValidQuery(query);
 
-    if (status !== 'valid') {
-      return onReply('on_invalid_input');
+    if (status !== "valid") {
+      return onReply("on_invalid_input");
     }
 
     setIsTyping(true);
 
     onQuestion(query, (status, data) => {
-      console.log('VQA said ', status, data);
+      console.log("VQA said ", status, data);
       setIsTyping(false);
       switch (status) {
-        case 'hit': {
+        case "hit": {
           return setMessages((previousMessages) =>
-            GiftedChat.append(previousMessages, generateReply(data)),
+            GiftedChat.append(previousMessages, generateReply(data))
           );
         }
         default: {
-          return onReply('on_miss');
+          return onReply("on_miss");
         }
       }
     });
