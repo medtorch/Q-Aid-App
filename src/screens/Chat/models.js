@@ -2,7 +2,7 @@ import React from "react";
 
 class Models {
   constructor() {
-    this.server = "https://q-and-aid.com";
+    this.server = "http://192.168.2.50:8000";
     this.method = "POST";
     this.headers = {
       "Content-Type": "application/json",
