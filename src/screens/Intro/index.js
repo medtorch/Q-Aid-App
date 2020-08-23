@@ -23,7 +23,7 @@ const pages = [
     image: <Image source={Context["IntroLogo2"]} style={IntroStyle.image} />,
     title: "Welcome to Q&Aid!",
     subtitle:
-      "Connect to several hospitals data for your investigation. \n\n Let's start!",
+      "Connect to several hospitals for your investigation. \n\n Let's start!",
   },
 ];
 

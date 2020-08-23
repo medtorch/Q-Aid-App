@@ -163,7 +163,7 @@ export function Main() {
       GiftedChat.append(previousMessages, generateReply(template))
     );
 
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 2000));
     wiki.ask(ctx.anomalies["why"], (err, explanation) => {
       setIsTyping(false);
       if (err) {
