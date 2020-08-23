@@ -13,9 +13,8 @@ const avatar1 = require("../../assets/doctor1.png");
 const avatar2 = require("../../assets/doctor2.png");
 const avatar3 = require("../../assets/doctor3.png");
 const avatar4 = require("../../assets/doctor4.png");
-const avatar5 = require("../../assets/doctor5.png");
 
-var avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
+var avatars = [avatar1, avatar2, avatar3, avatar4];
 
 module.exports.ChatAvatar = function () {
   return avatars[Math.floor(Math.random() * avatars.length)];

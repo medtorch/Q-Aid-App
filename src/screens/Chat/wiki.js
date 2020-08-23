@@ -7,11 +7,11 @@ class Wiki {
     this.cache = {};
   }
 
-  ask(search, cbk) {
+  ask(search, cbk, fallback = false) {
     const self = this;
 
     if (search in this.cache) {
-      return cbk(this.cache[search]);
+      return cbk(null, this.cache[search]);
     }
 
     const query =
@@ -27,8 +27,10 @@ class Wiki {
           return cbk("fail", GetReplyContent("on_dictionary_error"));
         }
         for (var idx in responseData) {
-          console.log("template ", responseData[idx]);
           if (typeof responseData[idx] == "string") {
+            if (!fallback) {
+              return self.ask(responseData[idx], cbk, true);
+            }
             var template = GetReplyContent("on_dictionary_miss");
             template = template.replace("%s", responseData[idx]);
             self.cache[search] = template;

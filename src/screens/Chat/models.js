@@ -84,6 +84,34 @@ class Models {
         return cbk(error, null);
       });
   }
+
+  nlp(query, cbk) {
+    var payload = {
+      data: query,
+    };
+
+    fetch(this.server + "/nlp", {
+      method: this.method,
+      headers: this.headers,
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        if (!responseData["answer"] || !responseData["answer"]["type"]) {
+          return cbk(query, "invalid", null);
+        }
+        return cbk(
+          query,
+          responseData["answer"]["type"],
+          responseData["answer"]["data"]
+        );
+      })
+      .catch((error) => {
+        console.log("nlp task failed ", error);
+        return cbk(query, "invalid", null);
+      });
+  }
 }
 
 module.exports.Models = Models;

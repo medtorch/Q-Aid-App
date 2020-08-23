@@ -10,14 +10,18 @@ module.exports.templates = {
       "On it",
       "This might take a while!",
     ],
+    on_greeting: [
+      "Hello there! How can I help you?",
+      "I hope you have a wonderful day! How can I help you?",
+      "Great to see you! How can I help you?",
+    ],
     on_upload: [
       "That looks like %s!",
       "Your upload looks like %s!",
       "I hope I'm not wrong, but that looks like %s!",
     ],
     on_invalid_input: [
-      "Please ask a valid question!",
-      "That's not a question!",
+      "Please try something else!",
       "Sorry, I cannot recognize that input. Try something else!",
     ],
     on_miss: [
@@ -31,7 +35,7 @@ module.exports.templates = {
     ],
 
     on_hip_no_anomalies: [
-      "%s VQA intelligence providers analyzed your input and lukily, they didn't find something outstanding!",
+      "%s VQA intelligence providers analyzed your input and luckily, they didn't find something outstanding!",
       "%s VQA providers say there isn't anything abnormal in your photo!",
     ],
     on_hip_anomalies: [
@@ -56,7 +60,7 @@ module.exports.templates = {
       "No results, but you can try %s.",
     ],
     on_dictionary_hit: [
-      "Acording to Merriam-Webster dictionary, %s reffers to %s.",
+      "According to Merriam-Webster dictionary, %s refers to %s.",
       "%s is defined as %s.",
       "One definition for %s is: %s.",
     ],
