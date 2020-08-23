@@ -31,12 +31,12 @@ module.exports.templates = {
     ],
 
     on_hip_no_anomalies: [
-      "%s health intelligence providers analyzed your input and lukily, they didn't find anything abnormal!",
-      "%s hospitals say there isn't anything abnormal in your photo!",
+      "%s VQA intelligence providers analyzed your input and lukily, they didn't find something outstanding!",
+      "%s VQA providers say there isn't anything abnormal in your photo!",
     ],
     on_hip_anomalies: [
-      "Unfortunately, %s/%s of the health intelligence providers found abnormalities in your input!",
-      "Unfortunately, %s/%s of the hospitals found issues in your photo!",
+      "Unfortunately, %s/%s of the VQA intelligence providers found abnormalities in your input!",
+      "Unfortunately, %s/%s of the VQA providers found issues in your photo!",
     ],
     on_prefilter_anomaly: [
       "The sources identified %s in the %s area. One of the possible reasons could be %s!",
@@ -68,6 +68,10 @@ module.exports.templates = {
     on_continue: ["Would you like to know something else?"],
     on_end: [
       "You can print this report and send it to multiple specialists. Take care!",
+    ],
+    on_segmentation: [
+      "Unfortunately, %s segmentation providers found issues in your upload.",
+      "It seems that %s segmentation providers found some anomalies in your input.",
     ],
   },
   messages: {

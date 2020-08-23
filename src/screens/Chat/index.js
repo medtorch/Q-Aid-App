@@ -108,7 +108,41 @@ export function Main() {
     ctx.on_source(file.uri);
   };
 
-  const handlePrefilter = async () => {
+  const handleSegmentation = async (bs64img) => {
+    console.log("run segm");
+    models.segmentation(bs64img, async function (err, answer) {
+      if (err || !answer["hip"]) {
+        console.log("segmentation failed ", err);
+        return;
+      }
+
+      var results = answer["hip"];
+      var count = Object.keys(results).length;
+      if (count == 0) {
+        console.log("no output for segmentation");
+        return;
+      }
+
+      for (var h in results) {
+        if (!results[h]["segmentation"]) continue;
+        var segmentation =
+          "data:image/png;base64," + results[h]["segmentation"];
+
+        var template = GetReplyContent("on_segmentation");
+        template = template.replace("%s", count);
+
+        var user_id = 3;
+        setMessages((previousMessages) =>
+          GiftedChat.append(previousMessages, generateReply(template, user_id))
+        );
+
+        onImageReply(segmentation, user_id);
+        break;
+      }
+    });
+  };
+
+  const handlePrefilter = async (bs64img) => {
     setIsTyping(true);
 
     if (ctx.topic) {
@@ -120,6 +154,11 @@ export function Main() {
       );
     }
 
+    const done = async function () {
+      setIsTyping(false);
+      handleSegmentation(bs64img);
+    };
+
     await new Promise((r) => setTimeout(r, 1000));
 
     if (ctx.total_sources == 0) {
@@ -129,8 +168,7 @@ export function Main() {
           generateReply(GetReplyContent("on_no_hip"))
         )
       );
-      setIsTyping(false);
-      return;
+      return done();
     }
 
     if (ctx.anomalies.total_sources == 0) {
@@ -140,8 +178,7 @@ export function Main() {
       setMessages((previousMessages) =>
         GiftedChat.append(previousMessages, generateReply(template))
       );
-      setIsTyping(false);
-      return;
+      return done();
     }
 
     var template = GetReplyContent("on_hip_anomalies");
@@ -163,15 +200,16 @@ export function Main() {
       GiftedChat.append(previousMessages, generateReply(template))
     );
 
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 2000));
     wiki.ask(ctx.anomalies["why"], (err, explanation) => {
-      setIsTyping(false);
       if (err) {
+        done();
         return;
       }
       setMessages((previousMessages) =>
         GiftedChat.append(previousMessages, generateReply(explanation))
       );
+      done();
     });
   };
 
@@ -193,15 +231,7 @@ export function Main() {
         CreateAlert(templates.messages.on_invalid_input);
         return;
       }
-      return handlePrefilter();
-    });
-
-    models.segmentation(bs64img, function (err, answer) {
-      if (err) {
-        console.log("segmentation failed ", err);
-        return;
-      }
-      console.log("got segmentation ", answer);
+      return handlePrefilter(bs64img);
     });
   };
 
@@ -253,7 +283,7 @@ export function Main() {
     return <Bubble {...props} wrapperStyle={ChatStyle.bubble} />;
   };
 
-  const generateReply = (msg) => {
+  const generateReply = (msg, user_id = 2) => {
     replyIdx += 1;
     var qaid_avatar = ChatAvatar();
     return {
@@ -261,9 +291,9 @@ export function Main() {
       text: msg,
       createdAt: new Date(),
       user: {
-        _id: 2,
+        _id: user_id,
         name: "Q&Aid",
-        avatar: qaid_avatar,
+        avatar: ChatAvatar(),
       },
       seen: true,
     };
@@ -276,6 +306,23 @@ export function Main() {
       image: img_src,
       createdAt: new Date(),
       user: user_ctx.user,
+      seen: true,
+    };
+
+    setMessages((previousMessages) => GiftedChat.append(previousMessages, msg));
+  };
+
+  const onImageReply = (img_data, user_id = 2) => {
+    replyIdx += 1;
+    var msg = {
+      _id: replyIdx,
+      image: img_data,
+      createdAt: new Date(),
+      user: {
+        _id: user_id,
+        name: "Q&Aid",
+        avatar: ChatAvatar(),
+      },
       seen: true,
     };
 
