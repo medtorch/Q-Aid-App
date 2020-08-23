@@ -1,5 +1,5 @@
-import React from 'react';
-import {Auth} from 'aws-amplify';
+import React from "react";
+import { Auth } from "aws-amplify";
 
 class User {
   constructor() {
@@ -9,15 +9,15 @@ class User {
   reset() {
     this.user = {
       _id: 1,
-      name: 'Anonymous',
+      name: "Anonymous",
     };
   }
   load() {
     var self = this;
     Auth.currentSession()
       .then((data) => {
-        self.user.name = data['accessToken']['payload']['username'];
-        console.log('user ', self.user.name);
+        self.user.name = data["accessToken"]["payload"]["username"];
+        console.log("user ", self.user.name);
       })
       .catch((err) => console.log(err));
   }
@@ -26,7 +26,7 @@ class User {
     try {
       await Auth.signOut();
     } catch (error) {
-      console.log('error signing out: ', error);
+      console.log("error signing out: ", error);
     }
   }
 }

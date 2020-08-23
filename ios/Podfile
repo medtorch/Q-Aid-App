@@ -10,6 +10,8 @@ target 'medqaidapp' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNReactNativePdfLib', :path => '../node_modules/react-native-pdf-lib'
+
   target 'medqaidappTests' do
     inherit! :complete
     # Pods for testing

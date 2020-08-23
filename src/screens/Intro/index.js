@@ -1,28 +1,29 @@
-import {Image, View, Text, StyleService} from 'react-native';
-import {Button} from 'react-native-elements';
+import { Image, View, Text, StyleService } from "react-native";
+import { Button } from "react-native-elements";
 
-import React from 'react';
-import {AsyncStorage} from 'react-native';
-import {Context, IntroStyle, palette} from '../../components';
+import React from "react";
+import { AsyncStorage } from "react-native";
+import { Context, IntroStyle, palette } from "../../components";
 
-import Onboarding from 'react-native-onboarding-swiper';
+import Onboarding from "react-native-onboarding-swiper";
 
-import {API, graphqlOperation} from 'aws-amplify';
-import {getUser} from '../../graphql/queries';
+import { API, graphqlOperation } from "aws-amplify";
+import { getUser } from "../../graphql/queries";
 
 const pages = [
   {
     backgroundColor: palette.background,
-    image: <Image source={Context['Logo']} style={IntroStyle.image} />,
-    title: 'Welcome to Q&Aid!',
+    image: <Image source={Context["IntroLogo"]} style={IntroStyle.image} />,
+    title: "Welcome to Q&Aid!",
     subtitle:
-      'Explore the latest AI discoveries in healthcare. \n\n Ask a second opinion on medical images.',
+      " Explore the latest AI discoveries in healthcare. \n\n Ask a second opinion on medical images.",
   },
   {
     backgroundColor: palette.background,
-    image: <Image source={Context['Logo']} style={IntroStyle.image} />,
-    title: 'Welcome to Q&Aid!',
-    subtitle: "Debate about a medical issue in the chatroom. \n\n Let's start!",
+    image: <Image source={Context["IntroLogo2"]} style={IntroStyle.image} />,
+    title: "Welcome to Q&Aid!",
+    subtitle:
+      "Connect to several hospitals data for your investigation. \n\n Let's start!",
   },
 ];
 
@@ -35,7 +36,7 @@ export function Intro(Comp) {
     }
 
     handleSkip = (state, data) => {
-      Context['Onboarding']['SkipOnboarding'] = true;
+      Context["Onboarding"]["SkipOnboarding"] = true;
       if (this.props.onStateChange) {
         this.props.onStateChange(state, data);
       }
@@ -67,7 +68,7 @@ export function Intro(Comp) {
       );
     };
     render() {
-      return this.renderInternal(Context['Onboarding']['SkipOnboarding']);
+      return this.renderInternal(Context["Onboarding"]["SkipOnboarding"]);
     }
   }
 
@@ -75,14 +76,14 @@ export function Intro(Comp) {
     // Copy static properties in order to be as close to Comp as possible.
     // One particular case is navigationOptions
     try {
-      const excludes = ['displayName', 'childContextTypes'];
+      const excludes = ["displayName", "childContextTypes"];
       if (excludes.includes(key)) {
         return;
       }
 
       Wrapper[key] = Comp[key];
     } catch (err) {
-      logger.warn('not able to assign ' + key, err);
+      logger.warn("not able to assign " + key, err);
     }
   });
 

@@ -1,33 +1,37 @@
-'use strict';
+"use strict";
 
-import React from 'react';
-import {Logger} from 'aws-amplify';
-import {Avatar, IconRegistry, ApplicationProvider} from '@ui-kitten/components';
-import {StyleSheet, View} from 'react-native';
-import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import * as eva from '@eva-design/eva';
+import React from "react";
+import { Logger } from "aws-amplify";
+import {
+  Avatar,
+  IconRegistry,
+  ApplicationProvider,
+} from "@ui-kitten/components";
+import { StyleSheet, View } from "react-native";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import * as eva from "@eva-design/eva";
 
-const logger = new Logger('auth components');
+const logger = new Logger("auth components");
 
-import {Authenticator} from 'aws-amplify-react-native';
-import {AuthStyle, AuthHeaderStyle, Context} from '../../components';
+import { Authenticator } from "aws-amplify-react-native";
+import { AuthStyle, AuthHeaderStyle, Context } from "../../components";
 
 const signUpConfig = {
   hideAllDefaults: true,
   signUpFields: [
     {
-      label: 'Email',
-      key: 'email',
+      label: "Email",
+      key: "email",
       required: true,
       displayOrder: 1,
-      type: 'string',
+      type: "string",
     },
     {
-      label: 'Password',
-      key: 'password',
+      label: "Password",
+      key: "password",
       required: true,
       displayOrder: 2,
-      type: 'password',
+      type: "password",
     },
   ],
 };
@@ -39,19 +43,19 @@ export function Authentication(Comp) {
 
       this.handleAuthStateChange = this.handleAuthStateChange.bind(this);
 
-      this.state = {authState: props.authState};
+      this.state = { authState: props.authState };
     }
 
     handleAuthStateChange(state, data) {
-      this.setState({authState: state, authData: data});
+      this.setState({ authState: state, authData: data });
       if (this.props.onStateChange) {
         this.props.onStateChange(state, data);
       }
     }
 
     render() {
-      const {authState, authData} = this.state;
-      const signedIn = authState === 'signedIn';
+      const { authState, authData } = this.state;
+      const signedIn = authState === "signedIn";
       if (signedIn) {
         return (
           <>
@@ -76,7 +80,7 @@ export function Authentication(Comp) {
               <Avatar
                 style={AuthHeaderStyle.logo}
                 size="large"
-                source={require('../../assets/logo.png')}
+                source={require("../../assets/logo.png")}
               />
             </View>
             <Authenticator
@@ -96,14 +100,14 @@ export function Authentication(Comp) {
     // Copy static properties in order to be as close to Comp as possible.
     // One particular case is navigationOptions
     try {
-      const excludes = ['displayName', 'childContextTypes'];
+      const excludes = ["displayName", "childContextTypes"];
       if (excludes.includes(key)) {
         return;
       }
 
       Wrapper[key] = Comp[key];
     } catch (err) {
-      logger.warn('not able to assign ' + key, err);
+      logger.warn("not able to assign " + key, err);
     }
   });
 
