@@ -35,7 +35,6 @@ import { Models } from "./models.js";
 import { CreateAlert } from "./utils.js";
 import { Wiki } from "./wiki.js";
 import { PDFGenerator } from "./pdf.js";
-import ImageResizer from "react-native-image-resizer";
 
 var replyIdx = 1;
 var ctx = new ChatContext();
@@ -286,6 +285,7 @@ export function Main() {
 
   const generateReply = (msg, user_id = 2) => {
     replyIdx += 1;
+    var qaid_avatar = ChatAvatar();
     return {
       _id: replyIdx,
       text: msg,
