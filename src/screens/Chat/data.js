@@ -10,14 +10,18 @@ module.exports.templates = {
       "On it",
       "This might take a while!",
     ],
+    on_greeting: [
+      "Hello there! How can I help you?",
+      "I hope you have a wonderful day! How can I help you?",
+      "Great to see you! How can I help you?",
+    ],
     on_upload: [
       "That looks like %s!",
       "Your upload looks like %s!",
       "I hope I'm not wrong, but that looks like %s!",
     ],
     on_invalid_input: [
-      "Please ask a valid question!",
-      "That's not a question!",
+      "Please try something else!",
       "Sorry, I cannot recognize that input. Try something else!",
     ],
     on_miss: [

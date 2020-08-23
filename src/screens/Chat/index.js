@@ -89,7 +89,6 @@ export function Main() {
             Linking.openURL("https://github.com/medtorch/Q-Aid-Core");
           }}
         />
-        <MenuItem accessoryLeft={ShareIcon} title="Print" />
         <MenuItem
           accessoryLeft={LogoutIcon}
           title="Logout"
@@ -337,13 +336,6 @@ export function Main() {
     );
   };
 
-  const queryType = (input) => {
-    if (input.length == 0) return "invalid";
-    if (input.toLowerCase().startsWith("define")) return "wiki";
-    if (input.trim().substr(-1) === "?") return "vqa";
-    return "invalid";
-  };
-
   const onQuestion = (query, cbk) => {
     if (!ctx.valid) {
       return cbk("error", "invalid input");
@@ -360,17 +352,19 @@ export function Main() {
     });
   };
 
-  const handleRequest = (query) => {
-    var type = queryType(query);
-
+  const handleRequest = (query, type, nlpData) => {
     setIsTyping(true);
     switch (type) {
+      case "greeting": {
+        setIsTyping(false);
+        return onReply("on_greeting");
+        break;
+      }
       case "vqa": {
         onQuestion(query, (status, data) => {
           setIsTyping(false);
           switch (status) {
             case "hit": {
-              console.log("got vqa data ", data);
               if (!data.total || !data.data) {
                 return setMessages((previousMessages) =>
                   GiftedChat.append(
@@ -396,8 +390,7 @@ export function Main() {
         break;
       }
       case "wiki": {
-        var term = query.toLowerCase().split("define")[1].trim();
-        wiki.ask(term, (err, message) => {
+        wiki.ask(nlpData, (err, message) => {
           setIsTyping(false);
           return setMessages((previousMessages) =>
             GiftedChat.append(previousMessages, generateReply(message))
@@ -419,7 +412,7 @@ export function Main() {
       GiftedChat.append(previousMessages, messages)
     );
     var query = messages[0].text;
-    handleRequest(query);
+    models.nlp(query, handleRequest);
   }, []);
 
   return (
