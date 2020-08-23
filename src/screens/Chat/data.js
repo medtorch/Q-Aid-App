@@ -31,7 +31,7 @@ module.exports.templates = {
     ],
 
     on_hip_no_anomalies: [
-      "%s VQA intelligence providers analyzed your input and lukily, they didn't find something outstanding!",
+      "%s VQA intelligence providers analyzed your input and luckily, they didn't find something outstanding!",
       "%s VQA providers say there isn't anything abnormal in your photo!",
     ],
     on_hip_anomalies: [
@@ -56,7 +56,7 @@ module.exports.templates = {
       "No results, but you can try %s.",
     ],
     on_dictionary_hit: [
-      "Acording to Merriam-Webster dictionary, %s reffers to %s.",
+      "According to Merriam-Webster dictionary, %s refers to %s.",
       "%s is defined as %s.",
       "One definition for %s is: %s.",
     ],
