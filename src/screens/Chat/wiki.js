@@ -7,7 +7,7 @@ class Wiki {
     this.cache = {};
   }
 
-  ask(search, cbk) {
+  ask(search, cbk, fallback = false) {
     const self = this;
 
     if (search in this.cache) {
@@ -28,6 +28,9 @@ class Wiki {
         }
         for (var idx in responseData) {
           if (typeof responseData[idx] == "string") {
+            if (!fallback) {
+              return self.ask(responseData[idx], cbk, true);
+            }
             var template = GetReplyContent("on_dictionary_miss");
             template = template.replace("%s", responseData[idx]);
             self.cache[search] = template;
