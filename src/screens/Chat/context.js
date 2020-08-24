@@ -7,10 +7,7 @@ class ChatContext {
   }
 
   reset() {
-    this.source = {
-      uri:
-        "https://thumbs.dreamstime.com/b/icon-ray-examination-xray-152986240.jpg",
-    };
+    this.source = require("../../assets/upload.png");
     this.image_value = null;
     this.valid = false;
     this.topic = null;
@@ -24,7 +21,9 @@ class ChatContext {
   }
 
   on_source(src) {
-    this.source.uri = src;
+    this.source = {
+        uri: src,
+    };
   }
 
   on_prefilter(img, prefilter) {
