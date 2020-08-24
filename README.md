@@ -13,24 +13,40 @@
 
 ## Motivation
 
-TODO
+Read more about our motivation [here](https://github.com/medtorch/Q-Aid-Motivation)
 
 ## Features
 
 - :zap: Created using [React-Native](https://reactnative.dev/).
-- :key: Authentication and database support by [AWS Amplify](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/).
+- :key: Authentication by [AWS Amplify](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/).
 - :cyclone: Awesome chat created using [GiftedChat](https://github.com/FaridSafi/react-native-gifted-chat).
-- :fire: Backed by the [PyTorch core](https://github.com/medtorch/Q-Aid-Core) algorithms.
+- :fire: Backed by the [PyTorch models](https://github.com/medtorch/Q-Aid-Models).
 
 ## Screens
 
 #### Login
 
+<p align="center">
+  <img align="center" src="https://github.com/medtorch/Q-Aid-App/blob/master/misc/login_screen.jpg" alt="Q&Aid" width="20%">
+</p>
+
+
 #### Onboarding
+
+
+<p align="center">
+  <img align="center" src="https://github.com/medtorch/Q-Aid-App/blob/master/misc/onboard_screen1.jpg" alt="Q&Aid" width="20%">
+  <img align="center" src="https://github.com/medtorch/Q-Aid-App/blob/master/misc/onboard_screen2.jpg" alt="Q&Aid" width="20%">
+</p>
 
 #### Chat
 
-#### Investigation
+
+<p align="center">
+  <img align="center" src="https://github.com/medtorch/Q-Aid-App/blob/master/misc/chat_screen1.jpg" alt="Q&Aid" width="20%">
+  <img align="center" src="https://github.com/medtorch/Q-Aid-App/blob/master/misc/chat_screen2.jpg" alt="Q&Aid" width="20%">
+  <img align="center" src="https://github.com/medtorch/Q-Aid-App/blob/master/misc/chat_Screen3.jpg" alt="Q&Aid" width="20%">
+</p>
 
 
 ## Installation
