@@ -1,3 +1,5 @@
+import { ChatAvatar } from "./icons.js";
+
 module.exports.templates = {
   replies: {
     intro: [
@@ -111,4 +113,15 @@ module.exports.GetReplyContent = function (type) {
 
 module.exports.get_pretty_category = function (input) {
   return module.exports.templates.router_labels[input];
+};
+
+var chat_user = {
+  _id: 2,
+  name: "Q&Aid",
+  avatar: ChatAvatar(),
+};
+
+module.exports.qaid_user = function (user_id = 2) {
+  chat_user._id = user_id;
+  return chat_user;
 };
