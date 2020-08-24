@@ -231,6 +231,8 @@ export function Main() {
       ctx.on_prefilter(bs64img, answer);
 
       if (!ctx.valid) {
+        ctx.reset();
+        setMessages([generateReply(GetReplyContent("intro"))]);
         CreateAlert(templates.messages.on_invalid_input);
         return;
       }
