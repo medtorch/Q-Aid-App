@@ -38,14 +38,12 @@ import { User } from "./user.js";
 import { Models } from "./models.js";
 import { CreateAlert } from "./utils.js";
 import { Wiki } from "./wiki.js";
-import { PDFGenerator } from "./pdf.js";
 
 var replyIdx = 1;
 var ctx = new ChatContext();
 var user_ctx = new User();
 var models = new Models();
 var wiki = new Wiki();
-var pdf = new PDFGenerator();
 
 export function Main() {
   const [menuVisible, setMenuVisible] = React.useState(false);
