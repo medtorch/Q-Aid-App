@@ -18,7 +18,12 @@ import PhotoUpload from "react-native-photo-upload";
 import { Auth } from "aws-amplify";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
 
-import { templates, GetReplyContent, get_pretty_category } from "./data.js";
+import {
+  templates,
+  GetReplyContent,
+  get_pretty_category,
+  qaid_user,
+} from "./data.js";
 import {
   MenuIcon,
   InfoIcon,
@@ -27,7 +32,6 @@ import {
   PhotoIcon,
   HeartIcon,
   LightIcon,
-  ChatAvatar,
 } from "./icons.js";
 import { ChatContext } from "./context.js";
 import { User } from "./user.js";
@@ -284,16 +288,11 @@ export function Main() {
 
   const generateReply = (msg, user_id = 2) => {
     replyIdx += 1;
-    var qaid_avatar = ChatAvatar();
     return {
       _id: replyIdx,
       text: msg,
       createdAt: new Date(),
-      user: {
-        _id: user_id,
-        name: "Q&Aid",
-        avatar: ChatAvatar(),
-      },
+      user: qaid_user(user_id),
       seen: true,
     };
   };
@@ -317,11 +316,7 @@ export function Main() {
       _id: replyIdx,
       image: img_data,
       createdAt: new Date(),
-      user: {
-        _id: user_id,
-        name: "Q&Aid",
-        avatar: ChatAvatar(),
-      },
+      user: qaid_user(user_id),
       seen: true,
     };
 
