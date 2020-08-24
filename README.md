@@ -13,7 +13,7 @@
 
 ## Motivation
 
-Read more about our motivation [here](https://github.com/medtorch/Q-Aid-Motivation)
+Read more about our motivation [here](https://github.com/medtorch/Q-Aid-Motivation).
 
 ## Features
 
