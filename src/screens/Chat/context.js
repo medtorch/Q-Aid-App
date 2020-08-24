@@ -22,7 +22,7 @@ class ChatContext {
 
   on_source(src) {
     this.source = {
-        uri: src,
+      uri: src,
     };
   }
 

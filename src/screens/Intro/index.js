@@ -2,10 +2,10 @@ import { Image, View, Text, StyleService } from "react-native";
 import { Button } from "react-native-elements";
 
 import React from "react";
-import { AsyncStorage } from "react-native";
 import { Context, IntroStyle, palette } from "../../components";
 
 import Onboarding from "react-native-onboarding-swiper";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../../graphql/queries";
@@ -33,17 +33,30 @@ export function Intro(Comp) {
       super(props);
 
       this.handleSkip = this.handleSkip.bind(this);
+      this.state = { skip: Context["Onboarding"]["SkipOnboarding"] };
+    }
+    componentDidMount() {
+      AsyncStorage.getItem("skipOnboarding").then((cached) => {
+        if (cached) {
+          console.log("skip cached", cached);
+          this.setState({ skip: true });
+          Context["Onboarding"]["SkipOnboarding"] = true;
+        }
+      });
     }
 
     handleSkip = (state, data) => {
       Context["Onboarding"]["SkipOnboarding"] = true;
+      AsyncStorage.setItem("skipOnboarding", "1").catch((err) =>
+        console.log("failed to save state ", err)
+      );
       if (this.props.onStateChange) {
         this.props.onStateChange(state, data);
       }
     };
 
-    renderInternal = (skipOnboarding) => {
-      if (skipOnboarding) {
+    renderInternal = () => {
+      if (this.state.skip) {
         return (
           <>
             <Comp {...this.props} />
@@ -68,7 +81,7 @@ export function Intro(Comp) {
       );
     };
     render() {
-      return this.renderInternal(Context["Onboarding"]["SkipOnboarding"]);
+      return this.renderInternal();
     }
   }
 
