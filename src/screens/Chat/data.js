@@ -33,7 +33,7 @@ module.exports.templates = {
     ],
     on_no_hip: [
       "Unfortunately, none of our intelligence providers could analyze the input!",
-      "I'm sorry, but I analyze the image!",
+      "I'm sorry, but I cannot analyze the image!",
     ],
 
     on_hip_no_anomalies: [
